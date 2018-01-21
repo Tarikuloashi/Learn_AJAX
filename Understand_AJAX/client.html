@@ -3,10 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>AJAX</title>
+	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 		
 		function updateText(){
-			//  var current_text = document.getElementById('user_text').value;
+			/* //  var current_text = document.getElementById('user_text').value;
 
 			//  var http = new XMLHttpRequest();
 			//  http.onreadystatechange = function(){
@@ -31,11 +32,49 @@
 			 	}
 			 };
 
-			// http.open("GET" , "http://localhost/AJAX/Understand_AJAX/server.php?user_text="+current_text , true);
+			
 			 http.open("POST" , "server.php", true);
 			 http.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 
 			 http.send("user_text="+current_text);
+			 */
+			
+			//Get Methods in AJAX JQUERY
+			// var current_text = $('#user_text').val();
+			// $.get("server.php" , "user_text="+current_text ,
+			// 	function(response , status , http){
+			// 		$('#server_response').val(response);
+			// 	} , "text"
+
+			// );
+			// 
+			//Get Methods in AJAX JQUERY
+			// var current_text = $('#user_text').val();
+			// $.post("server.php" , "user_text="+current_text ,
+			// 	function(response , status , http){
+			// 		$('#server_response').val(response);
+			// 	} , "text"
+
+			// );
+			
+			var current_text = $('#user_text').val();
+			$.ajax({
+				url:"server.php",
+				type:"GET" ,
+				data:"user_text="+current_text,
+				dataType:"text",
+				beforeSend:function( http ){
+					alert("Before Send Aleart");
+				},
+				success : function(response , status , http){
+					$('#server_response').val(response);
+				},
+				error : function(http , status ,error){
+					alert("Some Error Occured :" +error);
+				}
+			});
+			
+			
 
 		}
 	</script>
