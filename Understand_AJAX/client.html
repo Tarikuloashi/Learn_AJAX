@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AJAX</title>
+	<script type="text/javascript">
+		
+		function updateText(){
+			//  var current_text = document.getElementById('user_text').value;
+
+			//  var http = new XMLHttpRequest();
+			//  http.onreadystatechange = function(){
+			//  	if( http.readyState == 4 && http.status == 200 ){
+			//  		var response = http.responseText;
+			//  		document.getElementById('server_response').value = response;
+			//  	}
+			//  };
+
+			// // http.open("GET" , "http://localhost/AJAX/Understand_AJAX/server.php?user_text="+current_text , true);
+			//  http.open('GET' , "server.php?user_text="+current_text, true);
+			//  http.send();
+			
+			//POST Method
+			var current_text = document.getElementById('user_text').value;
+
+			 var http = new XMLHttpRequest();
+			 http.onreadystatechange = function(){
+			 	if( http.readyState == 4 && http.status == 200 ){
+			 		var response = http.responseText;
+			 		document.getElementById('server_response').value = response;
+			 	}
+			 };
+
+			// http.open("GET" , "http://localhost/AJAX/Understand_AJAX/server.php?user_text="+current_text , true);
+			 http.open("POST" , "server.php", true);
+			 http.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+			 http.send("user_text="+current_text);
+
+		}
+	</script>
+</head>
+<body >
+	<div>Input Text: <input type="text" id="user_text" name="user_text" onkeyup="updateText();" placeholder="Write somthing" ></div><br>
+	<div>Server Response: <input type="text" id="server_response" name="server_response" readonly></div>
+	
+</body>
+</html>
