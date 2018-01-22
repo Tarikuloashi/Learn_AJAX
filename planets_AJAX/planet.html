@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+	<title>Planet Information</title>
+	<style type="text/css">
+		
+		#planet_name{
+			height: 30px;
+			width: 300px;
+			font-size:30px;
+		}
+		.a1{
+			margin-top: 100px;
+			margin-left: 100px;
+			font-size: 30px;
+		}
+		div{
+			margin-left: 120px;
+			font-size: 20px;
+			width: 300px;
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="a1">Planet Name: <input type="text" name="planet_name" id="planet_name" onkeyup="getPlanetDetails();"></div>
+	<div>
+		<p style="color: red">Suggestions:</p>
+		<p id="suggestion_box">See You Suggestions Here</p>
+	</div>
+
+	<script type="text/javascript">
+			function getPlanetDetails(){
+
+				$.ajax({
+
+					url:"server.php",
+					type: "POST",
+					data: "planet_name="+$('#planet_name').val(),
+					dataType:"json",
+					success:function(response , status ,http){
+						console.log( response);
+
+						var new_suggestions = '';
+						$.each( response , function( index ,item){
+								new_suggestions = new_suggestions + " Name : " +item.name + "<br>";
+								new_suggestions = new_suggestions + " Year of Days : " +item.No_of_days_in_year +"<br>"; 
+								new_suggestions = new_suggestions + " Order No : " +item.order_no +"<br><hr>"; 
+							});
+						$('#suggestion_box').html(new_suggestions);
+						
+					},
+					error: function(http , status ,error){
+						alert("Some Error Occured:" +error);
+					}
+				});
+			}
+
+	</script>
+</body>
+</html>
