@@ -5,10 +5,22 @@
   $last_displayed_chat_id = $data['last_displayed_chat_id'];
 
   //connecte mysql server
-  $con = mysqli_connecct("localhost" , "root" ,"","group_chat");
+  $con = mysqli_connect("localhost" , "root" ,"","group_chat");
+
+  if(
+    isset($data['user_name']) &&
+    isset($data['user_comment'])
+  ){
+    $insert = "
+      INSERT INTO chats(user_name , user_comment)
+      VALUES('".$data['user_name']."' , '".$data['user_comment']."')
+    ";
+    $insert_result = mysqli_query($con , $insert);
+  }
+
 
   $select = "SELECT *
-                FORM chats
+                FROM chats
                 WHERE chat_id > '".$last_displayed_chat_id."'
                 ";
   $result = mysqli_query($con , $select);
